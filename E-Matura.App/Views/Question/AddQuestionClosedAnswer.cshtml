@@ -1,0 +1,55 @@
+﻿@using System.Web.Mvc.Html
+@model E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerVm
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Add question with closed answers</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.Label("Question text")
+        @Html.EditorFor(x=> x.Text, new { htmlAttributes = new { @class = "form-control", type = "textarea" }})
+    </div>
+    <div class="form-group">
+        @Html.Label("Subject")
+        @Html.EnumDropDownListFor(x => x.Subject, "Select subject", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Grade")
+        @Html.EnumDropDownListFor(x => x.Grade, "Select grade", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("NumberInTest")
+        @Html.EditorFor(c=>c.NumberInTest, new {htmlAttributes = new { type = "number", @class = "form-control"}})
+    </div>
+    <div class="form-group">
+        @Html.Label("Points")
+        @Html.EditorFor(c=>c.Points, new { htmlAttributes = new { type = "number", @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.Label("Answer 1")
+        <input class="form-control text-box single-line" type="text" name="Answer1Text"/>
+        @Html.CheckBoxFor(c => c.Answer1.IsTrue, new { @Name = "Answer1IsTrue", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Answer 2")
+        <input class="form-control text-box single-line" type="text" name="Answer2Text" />
+        @Html.CheckBoxFor(c => c.Answer2.IsTrue, new { @Name = "Answer2IsTrue", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Answer 3")
+        <input class="form-control text-box single-line" type="text" name="Answer3Text" />
+        @Html.CheckBoxFor(c=>c.Answer3.IsTrue, new { @Name = "Answer3IsTrue", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Answer 4")
+        <input class="form-control text-box single-line" type="text" name="Answer4Text" />
+        @Html.CheckBoxFor(c=>c.Answer4.IsTrue, new { @Name = "Answer4IsTrue", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit"/>
+    </div>
+}
