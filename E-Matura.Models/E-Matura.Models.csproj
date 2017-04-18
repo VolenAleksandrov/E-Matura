@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\Questions\AddQuestionClosedAnswerBm.cs" />
+    <Compile Include="EntityModels\Interfaces\IQuestionClosedAnswer.cs" />
     <Compile Include="ViewModels\Answers\ClosedAnswerVm.cs" />
     <Compile Include="EntityModels\Answers\ClosedAnswer.cs" />
     <Compile Include="EntityModels\Answers\OpenAnswer.cs" />
@@ -112,8 +113,10 @@
     <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\Matura\MaturaVm.cs" />
     <Compile Include="ViewModels\Questions\IQuestionVm.cs" />
     <Compile Include="ViewModels\Questions\QuestionClosedAnswerVm.cs" />
+    <Compile Include="ViewModels\Questions\QuestionClosedAnswerTestVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BindingModels\Answers\" />

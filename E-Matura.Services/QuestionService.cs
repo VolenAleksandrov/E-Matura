@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
-using E_Matura.Models.EntityModels.BaseModels;
-using E_Matura.Models.EntityModels.Interfaces;
 using E_Matura.Models.EntityModels.Questions;
-using E_Matura.Models.ViewModels.Questions;
 
 namespace E_Matura.Services
 {

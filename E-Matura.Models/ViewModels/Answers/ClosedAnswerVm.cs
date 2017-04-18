@@ -4,5 +4,6 @@
 	{
 		public string Text { get; set; }
 		public bool IsTrue { get; set; }
+	    public bool IsChecked { get; set; }
 	}
 }
