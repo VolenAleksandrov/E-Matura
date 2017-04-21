@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\Questions\AddQuestionClosedAnswerBm.cs" />
-    <Compile Include="EntityModels\Interfaces\IQuestionClosedAnswer.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="ViewModels\Answers\ClosedAnswerVm.cs" />
     <Compile Include="EntityModels\Answers\ClosedAnswer.cs" />
     <Compile Include="EntityModels\Answers\OpenAnswer.cs" />

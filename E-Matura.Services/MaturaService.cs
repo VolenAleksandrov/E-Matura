@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using E_Matura.Models.EntityModels.Answers;
 using E_Matura.Models.EntityModels.BaseModels;
 using E_Matura.Models.EntityModels.Interfaces;
 using E_Matura.Models.EntityModels.Questions;
 using E_Matura.Models.Enums;
+using E_Matura.Models.Utils;
 using E_Matura.Models.ViewModels.Answers;
 using E_Matura.Models.ViewModels.Matura;
 using E_Matura.Models.ViewModels.Questions;
@@ -27,14 +30,13 @@ namespace E_Matura.Services
                         break;
                 }
             }
-
             return vm;
         }
 
         private MaturaVm Generate12BgMatura(Grade grade, Subject subject)
         {
             MaturaVm matura = new MaturaVm();
-            matura.Time = 60;
+            matura.Time = Constants.Bb12MaturaTime;
             List<IQuestionVm> questions = new List<IQuestionVm>();
 
             for (int numberInTest = 1; numberInTest < 30; numberInTest++)
@@ -47,25 +49,42 @@ namespace E_Matura.Services
 
         private IQuestionVm GetQuestion(Grade grade, Subject subject, int numberInTest)
         {
-            IQueryable<QuestionClosedAnswer> questions =
-                this.Context.Questions.OfType<QuestionClosedAnswer>().Where(
+            IQueryable<QuestionBase> questions =
+                this.Context.Questions.Where(
                     q => q.Subject == subject && q.Grade == grade && q.NumberInTest == numberInTest);
+                //this.Context.Questions.Where(
+                //    q => q.Subject == subject && q.Grade == grade && q.NumberInTest == numberInTest);
             Random rand = new Random();
-            int index = rand.Next(questions.Count());
+            int index = rand.Next(0, questions.Count());
 
-            var questionEntity = questions.ToList()[index];
-
-            var questionType = questionEntity.GetType();
-            QuestionClosedAnswerTestVm question = new QuestionClosedAnswerTestVm()
+            var questionEntity = questions.ElementAt(index);
+            if (questionEntity != null && questionEntity is QuestionClosedAnswer)
             {
-                Text = questionEntity.Text,
-                Answers = new List<ClosedAnswerVm>()
+                int answersCount = 4;
+                List<ClosedAnswerVm> answers = new List<ClosedAnswerVm>();
+                if (questionEntity.Subject == Subject.EN)
                 {
-                    questionEntity.Answers.
+                    answersCount = 3;
                 }
-
-            };
-
+                for (int i = 0; i < answersCount; i++)
+                {
+                    var questionAsQuestionClosedAnswer = questionEntity as QuestionClosedAnswer;
+                    var answer = new ClosedAnswerVm
+                    {
+                        IsTrue = questionAsQuestionClosedAnswer.Answers[i].IsTrue,
+                        Text = questionAsQuestionClosedAnswer.Answers[i].Text
+                    };
+                    answers.Add(answer);
+                }
+                return new QuestionClosedAnswerTestVm()
+                {
+                    Text = questionEntity.Text,
+                    AnswerVms = answers,
+                    NumberInTest = questionEntity.NumberInTest,
+                    Points = questionEntity.Points
+                };
+            }
+            return null;
         }
     }
 }

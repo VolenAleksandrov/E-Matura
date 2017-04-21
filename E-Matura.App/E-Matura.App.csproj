@@ -258,6 +258,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Question\AddQuestionClosedAnswer.cshtml" />
+    <Content Include="Views\Matura\Generate12BgMatura.cshtml" />
+    <Content Include="Views\Matura\_ClosedAnswerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E-Matura.Data\E-Matura.Data.csproj">
@@ -288,9 +290,7 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Matura\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

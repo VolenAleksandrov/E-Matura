@@ -12,6 +12,6 @@ namespace E_Matura.Models.ViewModels.Matura
     {
         public int Time { get; set; }
 
-        public IEnumerable<IQuestionVm> Questions { get; set; }
+        public List<IQuestionVm> Questions { get; set; }
     }
 }

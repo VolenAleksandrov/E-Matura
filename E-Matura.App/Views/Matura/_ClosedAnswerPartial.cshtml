@@ -1,0 +1,14 @@
+﻿@model E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerTestVm
+@{
+    ViewBag.Title = "_ClosedAnswerPartial";
+}
+
+<h2>_ClosedAnswerPartial</h2>
+
+<div>@Model.Text</div>
+<div>
+    @for (int i = 0; i < Model.AnswerVms.Count; i++)
+    {
+        <div>@Model.AnswerVms[i].Text</div>
+    }
+</div>
