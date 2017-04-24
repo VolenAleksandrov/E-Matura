@@ -57,7 +57,7 @@ namespace E_Matura.Services
             Random rand = new Random();
             int index = rand.Next(0, questions.Count());
 
-            var questionEntity = questions.ElementAt(index);
+            var questionEntity = questions.ToList().ElementAt(index);
             if (questionEntity != null && questionEntity is QuestionClosedAnswer)
             {
                 int answersCount = 4;
