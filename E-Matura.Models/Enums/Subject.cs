@@ -1,16 +1,19 @@
 ﻿namespace E_Matura.Models.Enums
 {
-	public enum Subject
-	{
-		BG,
-		EN,
-		RU,
-		Math,
-		Geography,
-		History,
-		Chemistry,
-		Biology,
-		Phisics,
-
-	}
+    public enum Subject
+    {
+        BG,
+        EN,
+        RU,
+        Math,
+        Geography,
+        History,
+        Chemistry,
+        Biology,
+        Phisics,
+        HumanAndSociety,
+        HumanAndNature,
+        SocialSciencesCivicEducationReligion,
+        NaturalScienceAndNature
+    }
 }

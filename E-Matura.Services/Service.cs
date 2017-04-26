@@ -1,16 +1,17 @@
-﻿using E_Matura.Data;
-
-namespace E_Matura.Services
+﻿namespace E_Matura.Services
 {
+    using Data.Contracts;
+    using Ninject;
+    using static Data.DependencyContainer.DependencyContainer;
 	public class Service
 	{
-		private EMaturaContext context;
+		private IUnitOfWork context;
 
 		protected Service()
 		{
-			this.context = new EMaturaContext();
+		    this.context = Kernel.Get<IUnitOfWork>();
 		}
 
-		protected EMaturaContext Context => this.context;
+		protected IUnitOfWork Context => this.context;
 	}
 }

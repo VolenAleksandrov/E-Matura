@@ -15,11 +15,10 @@
     </div>
     <div class="form-group">
         @Html.Label("Grade")
-        @Html.EnumDropDownListFor(x => x.Grade, "Select grade", new { @class = "form-control" })
+        @Html.EnumDropDownListFor(x => x.Grade, "Select grade", new { @class = "form-control", id="ddlGrade"})
     </div>
-    <div class="form-group">
-        @Html.Label("Subject")
-        @Html.EnumDropDownListFor(x => x.Subject, "Select subject", new { @class = "form-control" })
+    <div class="form-group" id="asd">
+        
     </div>
     <div class="form-group">
         @Html.Label("NumberInTest")
@@ -56,11 +55,16 @@
 
 @section scripts{
     <script>
-    let formData = $('.formGroup');
-    let grade = formData[1];
-    grade.change(() => {
-        let param = grade.val();
-        grade.load('sdjksdfgjkl/sdjfjksd/update/' + param);
+   $(document).ready(function() {
+    $("#ddlGrade").change(function() {
+        var strSelected = "";
+        $("#ddlGrade option:selected").each(function() {
+            strSelected += $(this)[0].value;
+        });
+        var url = "/questions/chooseSubject/" + strSelected;
+        
+        $("#asd").load(url);
     });
+});
 </script>
 }

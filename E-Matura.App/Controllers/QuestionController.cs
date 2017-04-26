@@ -37,7 +37,14 @@ namespace E_Matura.App.Controllers
 			}
 			return this.RedirectToAction("AddQuestionClosedAnswer");
 		}
-                       
+
+	    [HttpGet]
+	    [Route("chooseSubject/{grade}")]
+	    public ActionResult ChooseSubject(int grade)
+	    {
+	        var vm = this.service.GetSubjects(grade);
+	        return this.PartialView("_ChooseSubjectPartial", vm);
+	    }
 		//public ActionResult AddQuestionOpenAnswer()
 		//{
 		//	throw new NotImplementedException();

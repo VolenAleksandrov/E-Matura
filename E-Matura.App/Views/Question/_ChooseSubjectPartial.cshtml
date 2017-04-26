@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html
+@model List<E_Matura.Models.Enums.Subject>
+
+@Html.Label("Grade")
+@Html.DropDownList("Subject",
+    new SelectList(
+        Model.Select(x => new { Value = x, Text = x }),
+        "Value",
+        "Text"
+    )
+, new { @class = "form-control"})

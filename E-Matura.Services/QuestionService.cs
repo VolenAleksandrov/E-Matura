@@ -5,6 +5,7 @@ using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
 using E_Matura.Models.EntityModels.Questions;
+using E_Matura.Models.Enums;
 
 namespace E_Matura.Services
 {
@@ -26,7 +27,7 @@ namespace E_Matura.Services
 			    throw new ArgumentOutOfRangeException("True answer must be only one!");
 		    }
 
-		    User user = this.Context.Users.FirstOrDefault(c => c.Id == userId);
+		    User user = this.Context.Users.Entities.FirstOrDefault(c => c.Id == userId);
 			QuestionClosedAnswer question = new QuestionClosedAnswer(bind.Text, bind.Points, bind.Grade, bind.Subject, bind.NumberInTest, user, answers);
 
 		    this.Context.ClosedAnswers.AddRange(answers);
@@ -57,5 +58,44 @@ namespace E_Matura.Services
                 
         //    };
         //}
+        public List<Subject> GetSubjects(int grade)
+        {
+            if (grade == 0)
+            {
+                return new List<Subject>()
+                {
+                    Subject.HumanAndNature,
+                    Subject.HumanAndSociety,
+                    Subject.BG,
+                    Subject.Math
+                };
+            }
+            else if (grade == 1)
+            {
+                return new List<Subject>()
+                {
+                    Subject.NaturalScienceAndNature,
+                    Subject.SocialSciencesCivicEducationReligion,
+                    Subject.BG,
+                    Subject.Math
+                };
+            }
+            else if (grade == 2)
+            {
+                return new List<Subject>()
+                {
+                    Subject.BG,
+                    Subject.RU,
+                    Subject.EN,
+                    Subject.Biology,
+                    Subject.Chemistry,
+                    Subject.Geography,
+                    Subject.History,
+                    Subject.Math,
+                    Subject.Phisics
+                };
+            }
+            return null;
+        }
     }
 }

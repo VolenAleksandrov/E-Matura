@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using E_Matura.Models.EntityModels.Answers;
 using E_Matura.Models.EntityModels.BaseModels;
-using E_Matura.Models.EntityModels.Interfaces;
 using E_Matura.Models.EntityModels.Questions;
 using E_Matura.Models.Enums;
 using E_Matura.Models.Utils;
@@ -49,8 +44,8 @@ namespace E_Matura.Services
 
         private IQuestionVm GetQuestion(Grade grade, Subject subject, int numberInTest)
         {
-            IQueryable<QuestionBase> questions =
-                this.Context.Questions.Where(
+            IEnumerable<QuestionBase> questions =
+                this.Context.Questions.Entities.Where(
                     q => q.Subject == subject && q.Grade == grade && q.NumberInTest == numberInTest);
                 //this.Context.Questions.Where(
                 //    q => q.Subject == subject && q.Grade == grade && q.NumberInTest == numberInTest);

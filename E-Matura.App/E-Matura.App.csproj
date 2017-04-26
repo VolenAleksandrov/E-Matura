@@ -260,6 +260,7 @@
     <Content Include="Views\Question\AddQuestionClosedAnswer.cshtml" />
     <Content Include="Views\Matura\Generate12BgMatura.cshtml" />
     <Content Include="Views\Matura\_ClosedAnswerPartial.cshtml" />
+    <Content Include="Views\Question\_ChooseSubjectPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E-Matura.Data\E-Matura.Data.csproj">
