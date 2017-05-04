@@ -3,9 +3,9 @@ using E_Matura.Models.EntityModels;
 using E_Matura.Models.Enums;
 using E_Matura.Models.ViewModels.Answers;
 
-namespace E_Matura.Models.ViewModels.Questions
+namespace E_Matura.Models.BindingModels.Questions
 {
-    public class QuestionClosedAnswerTestVm : IQuestionVm 
+    public class QuestionClosedAnswerTestBm
     {
         public int Id { get; set; }
         public string Text { get; set; }

@@ -1,14 +1,18 @@
-﻿@model E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerTestVm
-@{
-    ViewBag.Title = "_ClosedAnswerPartial";
-}
-
-<h2>_ClosedAnswerPartial</h2>
-
+﻿@using E_Matura.Models.ViewModels.Answers
+@model E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerTestVm
+<br/>
+<br/>
 <div>@Model.Text</div>
 <div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.Label("Въпрос № " + Model.NumberInTest)
+    @Html.Label("Точки: " + Model.Points)
+
     @for (int i = 0; i < Model.AnswerVms.Count; i++)
     {
-        <div>@Model.AnswerVms[i].Text</div>
+        <div>
+            @Html.CheckBox(Model.AnswerVms[i].Text, Model.AnswerVms[i].IsChecked, new {@Name="matura.Questions["+ i +"].AnswerVms["+ i +"].IsChecked"})
+            @Model.AnswerVms[i].Text
+        </div>
     }
 </div>

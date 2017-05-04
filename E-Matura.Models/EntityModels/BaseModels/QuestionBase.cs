@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using E_Matura.Models.EntityModels.Interfaces;
 using E_Matura.Models.Enums;
 using E_Matura.Models.Utils;
@@ -21,6 +22,11 @@ namespace E_Matura.Models.EntityModels.BaseModels
 			this.NumberInTest = numberInTest;
 		}
 
+	    public QuestionBase()
+	    {
+	        
+	    }
+        [Key]
 		public int Id { get; set; }
 
 		public string Text

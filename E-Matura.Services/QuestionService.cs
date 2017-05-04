@@ -4,8 +4,11 @@ using System.Linq;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
+using E_Matura.Models.EntityModels.BaseModels;
 using E_Matura.Models.EntityModels.Questions;
 using E_Matura.Models.Enums;
+using E_Matura.Models.ViewModels.Answers;
+using E_Matura.Models.ViewModels.Questions;
 
 namespace E_Matura.Services
 {
@@ -96,6 +99,62 @@ namespace E_Matura.Services
                 };
             }
             return null;
+        }
+
+        public IEnumerable<QuestionClosedAnswerVm> GetAllQuestionsByAuthor(string userId)
+        {
+            var user = this.Context.Users.Entities.First(c => c.Id == userId);
+            var questions = this.Context.Questions.Entities.Where(q => q.Author == user);
+            List<QuestionClosedAnswerVm> mappedQuestionVm = new List<QuestionClosedAnswerVm>();
+            foreach (var question in questions)
+            {
+                mappedQuestionVm.Add(this.MapModelToQuestion(question));
+            }
+            return mappedQuestionVm;
+        }
+
+        private QuestionClosedAnswerVm MapModelToQuestion(QuestionBase question)
+        {
+            if (question is QuestionClosedAnswer)
+            {
+               return this.MapModelToQuestionClosedAnswer(question);
+            }
+            return null;
+        }
+
+        private QuestionClosedAnswerVm MapModelToQuestionClosedAnswer(QuestionBase model)
+        {
+            var modelAsQClosedAnswer = (QuestionClosedAnswer)model;
+            var answers = this.Context.ClosedAnswers.Entities.Where(a => a.Question == modelAsQClosedAnswer);
+            //modelAsQClosedAnswer.Answers.AddRange(this.Context.ClosedAnswers.Entities.Where(a => a.Question.Id == model.Id));
+
+            var mappedAnswers = this.MapClosedAnswersToView(modelAsQClosedAnswer.Answers.ToList());
+
+            QuestionClosedAnswerVm mappedQuestion = new QuestionClosedAnswerVm()
+            {
+                Text = model.Text,
+                Points = model.Points,
+                NumberInTest = model.NumberInTest,
+                Subject = model.Subject,
+                Grade = model.Grade,
+                Author = model.Author,
+                AnswerVms = mappedAnswers
+            };
+            return mappedQuestion;
+        }
+
+        private List<ClosedAnswerVm> MapClosedAnswersToView(List<ClosedAnswer> answers)
+        {
+            List<ClosedAnswerVm> result = new List<ClosedAnswerVm>();
+            foreach (var answer in answers)
+            {
+                result.Add(new ClosedAnswerVm()
+                {
+                    Text = answer.Text,
+                    IsTrue = answer.IsTrue
+                });
+            }
+            return result;
         }
     }
 }

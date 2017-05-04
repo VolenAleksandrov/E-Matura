@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using E_Matura.Data.Contracts;
-using E_Matura.Data.DependencyContainer;
+﻿using E_Matura.Data.Contracts;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
 using E_Matura.Models.EntityModels.BaseModels;
+using E_Matura.Models.EntityModels.Matura;
+using E_Matura.Models.EntityModels.Questions;
 
 namespace E_Matura.Data
 {
@@ -19,6 +15,8 @@ namespace E_Matura.Data
         private IRepository<ClosedAnswer> closedAnswers;
         private IRepository<User> users;
         private IRepository<OpenAnswer> openAnswers;
+        private IRepository<TakenQuestion> takenQuestions;
+        private IRepository<MaturaResult> maturaResults;
 
         public UnitOfWork()
         {
@@ -43,6 +41,11 @@ namespace E_Matura.Data
         public IRepository<QuestionBase> Questions
            => this.questions ??
            (this.questions = new Repository<QuestionBase>(this.context.Questions));
-
+        public IRepository<TakenQuestion> TakenQuestions
+           => this.takenQuestions ??
+           (this.takenQuestions = new Repository<TakenQuestion>(this.context.TakenQuestions));
+        public IRepository<MaturaResult> MaturaResults
+           => this.maturaResults ??
+           (this.maturaResults = new Repository<MaturaResult>(this.context.MaturaResults));
     }
 }

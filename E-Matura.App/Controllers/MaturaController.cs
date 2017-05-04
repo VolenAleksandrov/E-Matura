@@ -1,6 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using E_Matura.Models.BindingModels.Questions;
+using E_Matura.Models.EntityModels.Matura;
+using E_Matura.Models.EntityModels.Questions;
 using E_Matura.Models.ViewModels.Matura;
+using E_Matura.Models.ViewModels.Questions;
 using E_Matura.Services;
+using Microsoft.AspNet.Identity;
 
 namespace E_Matura.App.Controllers
 {
@@ -17,10 +23,26 @@ namespace E_Matura.App.Controllers
 
         [HttpGet]
         [Route("{grade}/{subject}")]
-        public ActionResult Generate12BgMatura(int grade, string subject)
+        public ActionResult Matura(int grade, string subject)
         {
-            MaturaVm maturaVm = this.service.GenerateMatura(grade, subject);
+            var maturaVm = this.service.GenerateMatura(grade, subject);
             return this.View(maturaVm);
+        }
+
+        [HttpPost]
+        [Route("{grade}/{subject}")]
+        public ActionResult Matura(MaturaVm matura)
+        {
+            var userId = this.User.Identity.GetUserId();
+            MaturaResult maturaResult = this.service.VerificateMatura(matura.Questions, userId);
+            return this.MaturaResult(maturaResult);
+        }
+
+        [HttpGet]
+        [Route("results")]
+        public ActionResult MaturaResult(MaturaResult result)
+        {
+            return this.View(result);
         }
     }
 }

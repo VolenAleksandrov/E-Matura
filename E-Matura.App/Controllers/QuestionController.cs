@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.ViewModels.Questions;
 using E_Matura.Services;
@@ -45,6 +46,16 @@ namespace E_Matura.App.Controllers
 	        var vm = this.service.GetSubjects(grade);
 	        return this.PartialView("_ChooseSubjectPartial", vm);
 	    }
+
+	    [HttpGet]
+	    [Route("all")]
+	    public ActionResult AllQuestions()
+	    {
+	        var userId = this.User.Identity.GetUserId();
+	        IEnumerable<QuestionClosedAnswerVm> questionsVm = this.service.GetAllQuestionsByAuthor(userId);
+	        return this.View(questionsVm);
+	    }
+
 		//public ActionResult AddQuestionOpenAnswer()
 		//{
 		//	throw new NotImplementedException();

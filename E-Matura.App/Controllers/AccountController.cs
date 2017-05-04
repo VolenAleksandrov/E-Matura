@@ -11,6 +11,7 @@ using E_Matura.Models.ViewModels.Account;
 namespace E_Matura.App.Controllers
 {
     [Authorize]
+   
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -25,6 +26,8 @@ namespace E_Matura.App.Controllers
 			this.UserManager = userManager;
 			this.SignInManager = signInManager;
         }
+
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -48,6 +51,13 @@ namespace E_Matura.App.Controllers
             {
 				this._userManager = value;
             }
+        }
+        [HttpGet]
+        [Route("profile")]
+        [Route("")]
+        public ActionResult ShowProfile()
+        {
+            return this.View();
         }
 
         //

@@ -23,6 +23,17 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            Add Question
+                        </button>
+                        <ul class="dropdown-menu">
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li>@Html.ActionLink("ClosedAnswer", "AddQuestionClosedAnswer", "Question")</li>
+                            }
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

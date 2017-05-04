@@ -1,0 +1,17 @@
+﻿@using System.Web.Mvc.Html
+@model E_Matura.Models.ViewModels.Matura.MaturaVm
+@{
+    ViewBag.Title = "Generate12BgMatura";
+}
+
+@using (Html.BeginForm("Matura", "Matura", FormMethod.Post))
+{
+    @Html.HiddenFor(m=>m.Time)
+    foreach (var question in Model.Questions)
+    {
+        @Html.Partial("_ClosedAnswerPartial", question)
+    }
+    <div class="form-group">
+        <input type="submit" value="Предай теста" />
+    </div>
+}

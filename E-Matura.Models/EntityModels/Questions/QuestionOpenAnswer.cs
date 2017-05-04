@@ -17,6 +17,10 @@ namespace E_Matura.Models.EntityModels.Questions
 			this.AnswerVariations = answerVariations;
 		}
 
+	    public QuestionOpenAnswer()
+	    {
+	        
+	    }
 		public IEnumerable<OpenAnswer> AnswerVariations
 		{
 			get { return this.answerVariations; }

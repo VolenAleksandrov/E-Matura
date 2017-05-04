@@ -1,0 +1,29 @@
+﻿@using System.Web.Mvc.Html
+@model List<E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerVm>
+@{
+    ViewBag.Title = "AllQuestions";
+}
+
+@foreach (var vm in Model)
+{
+    <div>
+        @Html.Label(vm.Text)
+    </div>
+    <div>
+        @Html.Label(vm.Grade.ToString())
+    </div>
+    <div>
+        @Html.Label(vm.Subject.ToString())
+    </div>
+    <div>
+        @Html.Label(vm.NumberInTest.ToString())
+    </div>
+    <div>
+        @Html.Label(vm.Points.ToString())
+    </div>
+    foreach (var closedAnswerVm in vm.AnswerVms)
+    {
+    @Html.Label(closedAnswerVm.Text)
+    @Html.Label(closedAnswerVm.IsTrue.ToString())
+    }
+    }

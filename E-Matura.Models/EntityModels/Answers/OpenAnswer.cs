@@ -9,6 +9,11 @@ namespace E_Matura.Models.EntityModels.Answers
 			this.Variation = variation;
 		}
 
+	    public OpenAnswer()
+	    {
+	        
+	    }
+
 		public int Id { get; set; }
 		public IQuestion Question { get; set; }
 		public string Variation { get; set; }

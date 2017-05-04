@@ -16,6 +16,10 @@ namespace E_Matura.Models.EntityModels.Questions
 			this.Answers = answers;
 		}
 
+	    public QuestionClosedAnswer()
+	    {
+	         this.Answers = new List<ClosedAnswer>();
+	    }
 		public List<ClosedAnswer> Answers
 		{
 			get { return this.answers; }
