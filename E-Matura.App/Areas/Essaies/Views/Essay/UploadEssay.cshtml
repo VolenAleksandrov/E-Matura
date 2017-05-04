@@ -1,0 +1,34 @@
+﻿@model E_Matura.Models.ViewModels.Matura.UploadEssayVm
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.Label("Grade")
+        @Html.EnumDropDownListFor(x => x.Grade, "Select grade", new { @class = "form-control", id = "ddlGrade" })
+    </div>
+    <div class="form-group" id="asd">
+
+    </div>
+    <div>
+        @Html.LabelFor(m => m.EssayUpload)
+        @Html.EditorFor(m => m.EssayUpload)
+    </div>
+    <button type="submit">Качи есето</button>
+}
+@section scripts{
+    <script>
+   $(document).ready(function() {
+    $("#ddlGrade").change(function() {
+        var strSelected = "";
+        $("#ddlGrade option:selected").each(function() {
+            strSelected += $(this)[0].value;
+        });
+        var url = "/questions/chooseSubject/" + strSelected;
+
+        $("#asd").load(url);
+    });
+});
+    </script>
+}

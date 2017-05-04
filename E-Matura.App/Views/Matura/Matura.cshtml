@@ -3,14 +3,33 @@
 @{
     ViewBag.Title = "Generate12BgMatura";
 }
-
 @using (Html.BeginForm("Matura", "Matura", FormMethod.Post))
 {
-    @Html.HiddenFor(m=>m.Time)
-    foreach (var question in Model.Questions)
+    @Html.HiddenFor(m => m.Time)
+
+
+    for (int i = 0; i < this.Model.Questions.Count; i++)
     {
-        @Html.Partial("_ClosedAnswerPartial", question)
+        <div>@this.Model.Questions[i].Text</div>
+
+        <div>
+            @Html.HiddenFor(m => this.Model.Questions[i].Id)
+
+            @Html.Label("Въпрос № " + this.Model.Questions[i].NumberInTest)
+            @Html.Label("Точки: " + this.Model.Questions[i].Points)
+
+            @for (int index = 0; index < this.Model.Questions[i].AnswerVms.Count; index++)
+            {
+                <div>
+                    @Html.HiddenFor(m => m.Questions[i].AnswerVms[index].Id)
+                    @Html.CheckBoxFor(m => this.Model.Questions[i].AnswerVms[index].IsChecked)
+
+                    @this.Model.Questions[i].AnswerVms[index].Text
+                </div>
+            }
+        </div>
     }
+
     <div class="form-group">
         <input type="submit" value="Предай теста" />
     </div>

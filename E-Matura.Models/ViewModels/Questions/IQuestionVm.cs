@@ -8,8 +8,5 @@ namespace E_Matura.Models.ViewModels.Questions
         string Text { get; set; }
         int Points { get; set; }
         int NumberInTest { get; set; }
-        Subject Subject { get; set; }
-        Grade Grade { get; set; }
-        User Author { get; set; }
     }
 }

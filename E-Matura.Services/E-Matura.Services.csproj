@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EssayService.cs" />
     <Compile Include="MaturaService.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

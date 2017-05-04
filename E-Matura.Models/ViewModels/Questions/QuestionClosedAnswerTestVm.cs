@@ -7,13 +7,14 @@ namespace E_Matura.Models.ViewModels.Questions
 {
     public class QuestionClosedAnswerTestVm : IQuestionVm 
     {
+        public QuestionClosedAnswerTestVm()
+        {
+            this.AnswerVms = new List<ClosedAnswerVm>();
+        }
         public int Id { get; set; }
         public string Text { get; set; }
         public List<ClosedAnswerVm> AnswerVms { get; set; }
         public int Points { get; set; }
         public int NumberInTest { get; set; }
-        public Subject Subject { get; set; }
-        public Grade Grade { get; set; }
-        public User Author { get; set; }
     }
 }

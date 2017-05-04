@@ -192,6 +192,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Essaies\Controllers\EssayController.cs" />
+    <Compile Include="Areas\Essaies\EssaiesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -215,6 +217,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Essaies\Views\web.config" />
+    <Content Include="Areas\Essaies\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Essaies\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Essaies\Views\Essay\UploadEssay.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -266,6 +272,7 @@
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Matura\MaturaResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E-Matura.Data\E-Matura.Data.csproj">

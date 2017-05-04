@@ -1,0 +1,9 @@
+﻿@model E_Matura.Models.EntityModels.Matura.MaturaResult
+@{
+    ViewBag.Title = "Резултат от токущо направената матура";
+}
+<h2>@ViewBag.Title</h2>
+Клас: @Model.Grade
+Предмет: @Model.Subject
+Успех: @Model.Rating
+Дата: @Model.DateOfTake

@@ -81,8 +81,6 @@ namespace E_Matura.Services
                 Text = questionAsQuestionClosedAnswer.Text,
                 NumberInTest = questionAsQuestionClosedAnswer.NumberInTest,
                 Points = questionAsQuestionClosedAnswer.Points,
-                Grade = questionAsQuestionClosedAnswer.Grade,
-                Subject = questionAsQuestionClosedAnswer.Subject,
                 AnswerVms = answers,
                 Id = questionAsQuestionClosedAnswer.Id
             };
@@ -103,8 +101,6 @@ namespace E_Matura.Services
         {
             var user = this.Context.Users.Entities.First(c => c.Id == userId);
             DateTime date = DateTime.Today;
-            var grade = questions[0].Grade;
-            var subject = questions[0].Subject;
             int correctAnswers = 0;
 
             foreach (var question in questions)
@@ -119,14 +115,15 @@ namespace E_Matura.Services
 
             double rating = this.CalculateRating(questions.Count, correctAnswers);
 
-            return new MaturaResult()
+            var result = new MaturaResult()
             {
                 DateOfTake = date,
                 User = user,
-                Grade = grade,
-                Subject = subject,
                 Rating = rating,
             };
+            this.Context.MaturaResults.Add(result);
+            this.Context.SaveChanges();
+            return result;
         }
 
         private double CalculateRating(int questionsCount, int correctAnswers)
@@ -137,14 +134,16 @@ namespace E_Matura.Services
         private void AddQuestionToTakenQuestions(QuestionClosedAnswerTestVm question, bool isCorrect, User user, DateTime date)
         {
             List<ClosedAnswer> answers = new List<ClosedAnswer>();
-            foreach (var answerVm in question.AnswerVms)
+            var questionEntity = (QuestionClosedAnswer)this.Context.Questions.Find(question.Id);
+            for (int i = 0; i < questionEntity.Answers.Count; i++)
             {
+
                 answers.Add(new ClosedAnswer()
                 {
-                    Id = answerVm.Id,
-                    IsTrue = answerVm.IsTrue,
-                    Question = answerVm.Question,
-                    Text = answerVm.Text
+                    Id = question.AnswerVms[i].Id,
+                    IsTrue = questionEntity.Answers[i].IsTrue,
+                    Question = question.AnswerVms[i].Question,
+                    Text = question.AnswerVms[i].Text
                 });
             }
 
@@ -163,10 +162,11 @@ namespace E_Matura.Services
 
         private bool IsCorrectQuestionClsAns(QuestionClosedAnswerTestVm question)
         {
+            var questionEntity = (QuestionClosedAnswer)this.Context.Questions.Find(question.Id);
             bool flag = false;
-            foreach (ClosedAnswerVm questionAnswerVm in question.AnswerVms)
+            for (int i = 0; i < questionEntity.Answers.Count; i++)
             {
-                if (questionAnswerVm.IsChecked && questionAnswerVm.IsTrue)
+                if (question.AnswerVms[i].IsChecked && questionEntity.Answers[i].IsTrue)
                 {
                     flag = true;
                 }
