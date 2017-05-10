@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
@@ -117,20 +118,41 @@ namespace E_Matura.Services
         {
             if (question is QuestionClosedAnswer)
             {
-               return this.MapModelToQuestionClosedAnswer(question);
+               return this.MapModelToQuestionClosedAnswer((QuestionClosedAnswer)question);
             }
             return null;
         }
 
-        private QuestionClosedAnswerVm MapModelToQuestionClosedAnswer(QuestionBase model)
+        private QuestionClosedAnswerVm MapModelToQuestionClosedAnswer(QuestionClosedAnswer model)
         {
-            var modelAsQClosedAnswer = (QuestionClosedAnswer)model;
-            var answers = this.Context.ClosedAnswers.Entities.Where(a => a.Question == modelAsQClosedAnswer);
+            var answers = this.Context.ClosedAnswers.Entities.Where(a => a.Question == model);
             //modelAsQClosedAnswer.Answers.AddRange(this.Context.ClosedAnswers.Entities.Where(a => a.Question.Id == model.Id));
 
-            var mappedAnswers = this.MapClosedAnswersToView(modelAsQClosedAnswer.Answers.ToList());
+            var mappedAnswers = this.MapClosedAnswersToView(model.Answers.ToList());
 
-            QuestionClosedAnswerVm mappedQuestion = new QuestionClosedAnswerVm()
+            QuestionClosedAnswerVm mappedAddQuestion = new QuestionClosedAnswerVm()
+            {
+                Id = model.Id,
+                Text = model.Text,
+                Points = model.Points,
+                NumberInTest = model.NumberInTest,
+                Subject = model.Subject,
+                Grade = model.Grade,
+                Author = model.Author,
+                AnswerVms = mappedAnswers
+            };
+            return mappedAddQuestion;
+        }
+        private EditQuestionClosedAnswerVm MapModelToEditQuestionClosedAnswerVm(QuestionClosedAnswer model)
+        {
+            var questionAsQuestionClosedAnswer = (QuestionClosedAnswer)model;
+            IEnumerable<ClosedAnswer> answersEntity =
+                this.Context.ClosedAnswers.Entities.Where(a => a.Question == model);
+            questionAsQuestionClosedAnswer.Answers.AddRange(answersEntity);
+
+            var mappedAnswers = this.MapClosedAnswersToView(questionAsQuestionClosedAnswer.Answers.ToList());
+
+            EditQuestionClosedAnswerVm mappedEditQuestion = new EditQuestionClosedAnswerVm()
             {
                 Text = model.Text,
                 Points = model.Points,
@@ -140,9 +162,8 @@ namespace E_Matura.Services
                 Author = model.Author,
                 AnswerVms = mappedAnswers
             };
-            return mappedQuestion;
+            return mappedEditQuestion;
         }
-
         private List<ClosedAnswerVm> MapClosedAnswersToView(List<ClosedAnswer> answers)
         {
             List<ClosedAnswerVm> result = new List<ClosedAnswerVm>();
@@ -150,10 +171,19 @@ namespace E_Matura.Services
             {
                 result.Add(new ClosedAnswerVm()
                 {
+                    Id = answer.Id,
                     Text = answer.Text,
                     IsTrue = answer.IsTrue
                 });
             }
+            return result;
+        }
+      
+        public EditQuestionClosedAnswerVm GetEditQuestionVm(int id)
+        {
+            var question = this.Context.Questions.Find(id);
+            QuestionClosedAnswer questionLikeQuestionClosedAnswer = (QuestionClosedAnswer) question;
+            EditQuestionClosedAnswerVm result = this.MapModelToEditQuestionClosedAnswerVm(questionLikeQuestionClosedAnswer);
             return result;
         }
     }

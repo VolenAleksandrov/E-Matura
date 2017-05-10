@@ -8,7 +8,6 @@ using E_Matura.Services;
 
 namespace E_Matura.App.Areas.Essaies.Controllers
 {
-    [RouteArea("Essaies")]
     [RoutePrefix("essay")]
     public class EssayController : Controller
     {

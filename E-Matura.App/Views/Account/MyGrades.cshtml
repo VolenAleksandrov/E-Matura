@@ -1,0 +1,38 @@
+﻿@model List<E_Matura.Models.ViewModels.Matura.MaturaResultVm>
+
+<h2>Мойте оценки</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Клас
+        </th>
+        <th>
+            Предмет
+        </th>
+        <th>
+            Оценка
+        </th>
+        <th>
+            Дата
+        </th>
+    </tr>
+    @foreach (var maturaResultVm in Model)
+    {
+        <tr>
+            <td>
+                @maturaResultVm.Grade
+            </td>
+            <td>
+                @maturaResultVm.Subject
+            </td>
+            <td>
+                @maturaResultVm.Rating
+            </td>
+            <td>
+                @maturaResultVm.DateOfTake
+            </td>
+        </tr>
+    }
+
+</table>

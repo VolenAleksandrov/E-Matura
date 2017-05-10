@@ -23,11 +23,11 @@ namespace E_Matura.App.Controllers
         [Authorize(Roles = "Admin, Teacher")]
         public ActionResult AddQuestionClosedAnswer()
 		{
-			return this.View(new QuestionClosedAnswerVm());
+			return this.View(new AddQuestionClosedAnswerVm());
 		}
 
 		[HttpPost]
-		[Route("add/closedAnswer")]
+        [Route("add/closedAnswer")]
 		public ActionResult AddQuestionClosedAnswer([Bind(Include = "Text, Grade, Subject, Points, numberInTest, Answer1Text, Answer1IsTrue, Answer2Text, Answer2IsTrue, Answer3Text, Answer3IsTrue, Answer4Text, Answer4IsTrue")] AddQuestionClosedAnswerBm bind)
 		{
 			if (this.ModelState.IsValid)
@@ -36,7 +36,7 @@ namespace E_Matura.App.Controllers
 				this.service.AddQuestionClosedAnswer(bind, userId);
 				return this.RedirectToAction("Index", "Home");
 			}
-			return this.RedirectToAction("AddQuestionClosedAnswer");
+			return this.View();
 		}
 
 	    [HttpGet]
@@ -56,17 +56,26 @@ namespace E_Matura.App.Controllers
 	        return this.View(questionsVm);
 	    }
 
-		//public ActionResult AddQuestionOpenAnswer()
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-        //[HttpGet]
-        //[Route("{id:int}")]
-        //public ActionResult ShowQuestion(int id)
+        //public ActionResult AddQuestionOpenAnswer()
         //{
-        //    var questionVm = this.service.GetQuestionVm(id);
-        //    return this.View(questionVm);
+        //	throw new NotImplementedException();
         //}
+
+        [HttpGet]
+        [Route("edit/{id:int}")]
+        [Authorize(Roles = "Admin, Teacher")]
+        public ActionResult EditQuestion(int id)
+        {
+            EditQuestionClosedAnswerVm questionVm = this.service.GetEditQuestionVm(id);
+            return this.View(questionVm);
+        }
+        [HttpPost]
+        [Route("edit/{id:int}")]
+        [Authorize(Roles = "Admin, Teacher")]
+        public ActionResult EditQuestion(EditQuestionClosedAnswerVm model)
+        {
+
+            return this.RedirectToAction("AddQuestionClosedAnswer");
+        }
     }
 }

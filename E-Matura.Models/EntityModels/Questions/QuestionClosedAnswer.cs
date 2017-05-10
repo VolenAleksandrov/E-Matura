@@ -27,7 +27,7 @@ namespace E_Matura.Models.EntityModels.Questions
 			{
 				if (Utilities.IsValidQuestionClosedAnswers(value))
 				{
-					throw new ArgumentOutOfRangeException("Answers must be exacly four!");
+					throw new ArgumentOutOfRangeException("Answers must be exacly four or three! The true answers can be max two!");
 				}
 				this.answers = value;
 			}

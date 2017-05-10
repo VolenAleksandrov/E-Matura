@@ -1,4 +1,7 @@
-﻿using E_Matura.Models.EntityModels.Interfaces;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using E_Matura.Models.EntityModels.Interfaces;
+using E_Matura.Models.Utils;
 
 namespace E_Matura.Models.EntityModels.Answers
 {
@@ -19,16 +22,17 @@ namespace E_Matura.Models.EntityModels.Answers
 
 		public int Id { get; set; }
 
+        [MinLength(5)]
 		public string Text
 		{
 			get { return this.text; }
 			set
 			{
-				//if (!Utilities.IsValid(value))
-				//{
-				//	throw new ArgumentNullException("Text must be not empty!");
-				//}
-				this.text = value;
+                //if (!Utilities.IsValid(value))
+                //{
+                //    throw new ArgumentNullException("Text must be not empty!");
+                //}
+                this.text = value;
 			}
 		}
 		

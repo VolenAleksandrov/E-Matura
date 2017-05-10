@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Routing;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels.Matura;
 using E_Matura.Models.EntityModels.Questions;
@@ -35,14 +36,15 @@ namespace E_Matura.App.Controllers
         {
             var userId = this.User.Identity.GetUserId();
             MaturaResult maturaResult = this.service.VerificateMatura(matura.Questions, userId);
-            return this.MaturaResult(maturaResult);
+            int id = maturaResult.Id;
+            return this.Redirect($"~/matura/result/{maturaResult.Id}");
         }
 
         [HttpGet]
-        [Route("results")]
-        public ActionResult MaturaResult(MaturaResult result)
+        [Route("result/{id:int}")]
+        public ActionResult MaturaResult(int id)
         {
-            return this.View(result);
+            return this.View(this.service.GetMaturaResult(id));
         }
     }
 }

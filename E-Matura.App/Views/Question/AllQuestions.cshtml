@@ -23,7 +23,10 @@
     </div>
     foreach (var closedAnswerVm in vm.AnswerVms)
     {
-    @Html.Label(closedAnswerVm.Text)
-    @Html.Label(closedAnswerVm.IsTrue.ToString())
+        @Html.Label(closedAnswerVm.Text)
+        @Html.Label(closedAnswerVm.IsTrue.ToString())
     }
-    }
+    <div>
+        @Html.ActionLink("questions/" + vm.Id.ToString(), "EditQuestion");
+    </div>
+}

@@ -119,11 +119,14 @@
     <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\Matura\MaturaResultVm.cs" />
     <Compile Include="ViewModels\Matura\UploadEssayVm.cs" />
     <Compile Include="ViewModels\Matura\MaturaVm.cs" />
+    <Compile Include="ViewModels\Questions\EditQuestionClosedAnswerVm.cs" />
     <Compile Include="ViewModels\Questions\IQuestionVm.cs" />
-    <Compile Include="ViewModels\Questions\QuestionClosedAnswerVm.cs" />
+    <Compile Include="ViewModels\Questions\AddQuestionClosedAnswerVm.cs" />
     <Compile Include="ViewModels\Questions\QuestionClosedAnswerTestVm.cs" />
+    <Compile Include="ViewModels\Questions\QuestionClosedAnswerVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BindingModels\Answers\" />

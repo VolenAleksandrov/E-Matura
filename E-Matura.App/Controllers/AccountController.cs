@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -7,24 +8,28 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using E_Matura.Models.ViewModels.Account;
+using E_Matura.Models.ViewModels.Matura;
+using E_Matura.Services;
 
 namespace E_Matura.App.Controllers
 {
     [Authorize]
-   
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private AccountService service;
+
 
         public AccountController()
         {
+            this.service = new AccountService();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-			this.UserManager = userManager;
-			this.SignInManager = signInManager;
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
         }
 
 
@@ -35,9 +40,9 @@ namespace E_Matura.App.Controllers
             {
                 return this._signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
+            private set
             {
-				this._signInManager = value; 
+                this._signInManager = value;
             }
         }
 
@@ -49,7 +54,7 @@ namespace E_Matura.App.Controllers
             }
             private set
             {
-				this._userManager = value;
+                this._userManager = value;
             }
         }
         [HttpGet]
@@ -60,12 +65,21 @@ namespace E_Matura.App.Controllers
             return this.View();
         }
 
+        [HttpGet]
+        [Route("myGrades")]
+        public ActionResult MyGrades()
+        {
+            string userId = this.User.Identity.GetUserId();
+            List<MaturaResultVm> vm = this.service.GetUserResults(userId);
+            return this.View(vm);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-	        this.ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
         }
 
@@ -94,7 +108,7 @@ namespace E_Matura.App.Controllers
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-					this.ModelState.AddModelError("", "Invalid login attempt.");
+                    this.ModelState.AddModelError("", "Invalid login attempt.");
                     return this.View(model);
             }
         }
@@ -128,7 +142,7 @@ namespace E_Matura.App.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -137,7 +151,7 @@ namespace E_Matura.App.Controllers
                     return this.View("Lockout");
                 case SignInStatus.Failure:
                 default:
-					this.ModelState.AddModelError("", "Invalid code.");
+                    this.ModelState.AddModelError("", "Invalid code.");
                     return this.View(model);
             }
         }
@@ -164,8 +178,8 @@ namespace E_Matura.App.Controllers
                 if (result.Succeeded)
                 {
                     this.UserManager.AddToRole(user.Id, "Student");
-                    await this.SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -174,7 +188,7 @@ namespace E_Matura.App.Controllers
 
                     return this.RedirectToAction("Index", "Home");
                 }
-	            this.AddErrors(result);
+                this.AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -268,7 +282,7 @@ namespace E_Matura.App.Controllers
             {
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-	        this.AddErrors(result);
+            this.AddErrors(result);
             return this.View();
         }
 
@@ -350,8 +364,8 @@ namespace E_Matura.App.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
-		            this.ViewBag.ReturnUrl = returnUrl;
-		            this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    this.ViewBag.ReturnUrl = returnUrl;
+                    this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -387,10 +401,10 @@ namespace E_Matura.App.Controllers
                         return this.RedirectToLocal(returnUrl);
                     }
                 }
-	            this.AddErrors(result);
+                this.AddErrors(result);
             }
 
-	        this.ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ReturnUrl = returnUrl;
             return this.View(model);
         }
 
@@ -400,7 +414,7 @@ namespace E_Matura.App.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-			this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -418,14 +432,14 @@ namespace E_Matura.App.Controllers
             {
                 if (this._userManager != null)
                 {
-					this._userManager.Dispose();
-					this._userManager = null;
+                    this._userManager.Dispose();
+                    this._userManager = null;
                 }
 
                 if (this._signInManager != null)
                 {
-					this._signInManager.Dispose();
-					this._signInManager = null;
+                    this._signInManager.Dispose();
+                    this._signInManager = null;
                 }
             }
 
@@ -448,7 +462,7 @@ namespace E_Matura.App.Controllers
         {
             foreach (var error in result.Errors)
             {
-				this.ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", error);
             }
         }
 
@@ -470,9 +484,9 @@ namespace E_Matura.App.Controllers
 
             public ChallengeResult(string provider, string redirectUri, string userId)
             {
-				this.LoginProvider = provider;
-				this.RedirectUri = redirectUri;
-				this.UserId = userId;
+                this.LoginProvider = provider;
+                this.RedirectUri = redirectUri;
+                this.UserId = userId;
             }
 
             public string LoginProvider { get; set; }

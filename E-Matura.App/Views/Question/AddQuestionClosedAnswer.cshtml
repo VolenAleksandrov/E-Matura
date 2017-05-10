@@ -1,5 +1,5 @@
 ﻿@using System.Web.Mvc.Html
-@model E_Matura.Models.ViewModels.Questions.QuestionClosedAnswerVm
+@model E_Matura.Models.ViewModels.Questions.AddQuestionClosedAnswerVm
 
 @{
     ViewBag.Title = "title";
@@ -12,10 +12,12 @@
     <div class="form-group">
         @Html.Label("Question text")
         @Html.EditorFor(x=> x.Text, new { htmlAttributes = new { @class = "form-control", type = "textarea" }})
+        @Html.ValidationMessageFor(vm => vm.Text)
     </div>
     <div class="form-group">
         @Html.Label("Grade")
         @Html.EnumDropDownListFor(x => x.Grade, "Select grade", new { @class = "form-control", id="ddlGrade"})
+        @Html.ValidationMessageFor(vm => vm.Grade)
     </div>
     <div class="form-group" id="asd">
         
@@ -23,29 +25,35 @@
     <div class="form-group">
         @Html.Label("NumberInTest")
         @Html.EditorFor(c=>c.NumberInTest, new {htmlAttributes = new { type = "number", @class = "form-control"}})
+        @Html.ValidationMessageFor(vm => vm.NumberInTest)
     </div>
     <div class="form-group">
         @Html.Label("Points")
         @Html.EditorFor(c=>c.Points, new { htmlAttributes = new { type = "number", @class = "form-control" } })
+        @Html.ValidationMessageFor(vm => vm.Points)
     </div>
     <div class="form-group">
         @Html.Label("Answer 1")
         <input class="form-control text-box single-line" type="text" name="Answer1Text"/>
+        @Html.ValidationMessageFor(vm => vm.AnswerVms[0].Text)
         @Html.CheckBoxFor(c => c.AnswerVms[0].IsTrue, new { @Name = "Answer1IsTrue", @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.Label("Answer 2")
         <input class="form-control text-box single-line" type="text" name="Answer2Text" />
+        @Html.ValidationMessageFor(vm => vm.AnswerVms[1].Text)
         @Html.CheckBoxFor(c => c.AnswerVms[1].IsTrue, new { @Name = "Answer2IsTrue", @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.Label("Answer 3")
         <input class="form-control text-box single-line" type="text" name="Answer3Text" />
+        @Html.ValidationMessageFor(vm => vm.AnswerVms[2].Text)
         @Html.CheckBoxFor(c=>c.AnswerVms[2].IsTrue, new { @Name = "Answer3IsTrue", @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.Label("Answer 4")
         <input class="form-control text-box single-line" type="text" name="Answer4Text" />
+        @Html.ValidationMessageFor(vm => vm.AnswerVms[3].Text)
         @Html.CheckBoxFor(c=>c.AnswerVms[3].IsTrue, new { @Name = "Answer4IsTrue", @class = "form-control" })
     </div>
     <div class="form-group">

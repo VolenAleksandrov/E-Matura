@@ -4,7 +4,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using E_Matura.Models.EntityModels.Answers;
+using E_Matura.Models.EntityModels.Matura;
 using E_Matura.Models.ViewModels.Answers;
+using E_Matura.Models.ViewModels.Matura;
 
 namespace E_Matura.App
 {
@@ -25,6 +27,7 @@ namespace E_Matura.App
             {
                 expression.CreateMap<List<ClosedAnswer>,
                 List<ClosedAnswerVm>>();
+                expression.CreateMap<MaturaResult, MaturaResultVm>();
             });
         }
     }

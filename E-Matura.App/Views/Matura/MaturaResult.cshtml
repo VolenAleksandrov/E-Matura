@@ -1,9 +1,10 @@
-﻿@model E_Matura.Models.EntityModels.Matura.MaturaResult
+﻿@model E_Matura.Models.ViewModels.Matura.MaturaResultVm
 @{
     ViewBag.Title = "Резултат от токущо направената матура";
 }
 <h2>@ViewBag.Title</h2>
-Клас: @Model.Grade
 Предмет: @Model.Subject
+<br/>
 Успех: @Model.Rating
-Дата: @Model.DateOfTake
+<br/>
+Дата: @Model.DateOfTake.ToString("dd-MM-yy")

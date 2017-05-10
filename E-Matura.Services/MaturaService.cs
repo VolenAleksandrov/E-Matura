@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using E_Matura.Models.BindingModels.Questions;
 using E_Matura.Models.EntityModels;
 using E_Matura.Models.EntityModels.Answers;
@@ -36,7 +37,7 @@ namespace E_Matura.Services
             MaturaVm matura = new MaturaVm();
             List<QuestionClosedAnswerTestVm> questions = new List<QuestionClosedAnswerTestVm>();
 
-            for (int numberInTest = 1; numberInTest < 2; numberInTest++)
+            for (int numberInTest = 1; numberInTest < 22; numberInTest++)
             {
                 questions.Add(this.GetRandomQuestion(grade, subject, numberInTest));
             }
@@ -128,7 +129,7 @@ namespace E_Matura.Services
 
         private double CalculateRating(int questionsCount, int correctAnswers)
         {
-            return correctAnswers * 6.0 / questionsCount;
+            return (correctAnswers * 6.0 / questionsCount)+2;
         }
 
         private void AddQuestionToTakenQuestions(QuestionClosedAnswerTestVm question, bool isCorrect, User user, DateTime date)
@@ -146,8 +147,11 @@ namespace E_Matura.Services
                     Text = question.AnswerVms[i].Text
                 });
             }
-
-            int choosenAnswerId = question.AnswerVms.FirstOrDefault(a => a.IsChecked).Id;
+            int? choosenAnswerId = null;
+            if (question.AnswerVms.Any(a=>a.IsChecked))
+            {
+                choosenAnswerId = question.AnswerVms.FirstOrDefault(a => a.IsChecked).Id;
+            }
 
             TakenQuestion takenQuestion = new TakenQuestion()
             {
@@ -172,6 +176,13 @@ namespace E_Matura.Services
                 }
             }
             return flag;
+        }
+
+        public MaturaResultVm GetMaturaResult(int id)
+        {
+            var maturaResEntity = this.Context.MaturaResults.Find(id);
+            MaturaResultVm maturaResult = Mapper.Map<MaturaResult, MaturaResultVm>(maturaResEntity);
+            return maturaResult;
         }
     }
 }

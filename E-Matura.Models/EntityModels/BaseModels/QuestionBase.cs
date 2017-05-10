@@ -29,16 +29,17 @@ namespace E_Matura.Models.EntityModels.BaseModels
         [Key]
 		public int Id { get; set; }
 
-		public string Text
+        [MinLength(5)]
+        public string Text
 		{
 			get { return this.text; }
 			set
-			{
-				if (!Utilities.IsValid(value))
-				{
-					throw new ArgumentNullException("Text must be not empty!");
-				}
-				this.text = value;
+            {
+                //	if (!Utilities.IsValid(value))
+                //	{
+                //		throw new ArgumentNullException("Text must be not empty!");
+                //	}
+                this.text = value;
 			}
 		}
 

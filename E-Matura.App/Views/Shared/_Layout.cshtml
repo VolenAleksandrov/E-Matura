@@ -17,24 +17,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("E-Matura", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            Add Question
-                        </button>
-                        <ul class="dropdown-menu">
-                            @if (User.IsInRole("Teacher"))
-                            {
-                                <li>@Html.ActionLink("ClosedAnswer", "AddQuestionClosedAnswer", "Question")</li>
-                            }
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Начало", "Index", "Home")</li>
+                    <li>@Html.ActionLink("За нас", "About", "Home")</li>
+                    <li><a href="http://localhost:59922/matura/12/bg">Матура</a></li>
+                    @if (User.IsInRole("Sturdent"))
+                    {
+                        <li>@Html.ActionLink("Моят профил", "ShowProfile", "Account")</li>
+                    }
+                    @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Моят профил", "ShowProfile", "Account")</li>
+                        <li>@Html.ActionLink("Добави въпрос", "AddQuestionClosedAnswer", "Question")</li>
+                    }
+                    <li>@Html.ActionLink("Контакти", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
